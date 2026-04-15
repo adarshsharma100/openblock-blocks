@@ -26,6 +26,9 @@ goog.require('Blockly.Arduino');
 Blockly.Arduino['data_variable'] = function(block) {
   var varName = Blockly.Arduino.variableDB_.getName(block.getFieldValue('VARIABLE'),
       Blockly.Variables.NAME_TYPE);
+  if (varName === 'millis') {
+    return ['millis()', Blockly.Arduino.ORDER_ATOMIC];
+  }
   return [varName, Blockly.Arduino.ORDER_ATOMIC];
 };
 

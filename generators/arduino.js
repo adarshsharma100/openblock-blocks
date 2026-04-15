@@ -71,7 +71,7 @@ Blockly.Arduino.addReservedWords(
   'setup,loop,define,include,HIGH,LOW,INPUT,OUTPUT,INPUT_PULLUP,interger,' +
   'constants,floating,point,boolean,byte,word,double,string,String,' +
   'array,pinMode,digitalWrite,digitalRead,analogReference,analogRead,' +
-  'analogWrite,tone,noTone,shiftOut,shitIn,pulseIn,millis,micros,delay,' +
+  'analogWrite,tone,noTone,shiftOut,shitIn,pulseIn,micros,delay,' +
   'delayMicroseconds,min,max,constrain,map,randomSeed,random,lowByte,' +
   'highByte,bitRead,bitWrite,bitSet,bitClear,bit,attachInterrupt,' +
   'detachInterrupt,interrupts,noInterrupts,' +
@@ -143,7 +143,12 @@ Blockly.Arduino.init = function(workspace) {
       defvars[x] = 'SimpleList<String> ' +
         Blockly.Arduino.variableDB_.getName(variables[x].name, Blockly.Variables.NAME_TYPE) + ';';
     } else {
-      defvars[x] = 'float ' + Blockly.Arduino.variableDB_.getName(variables[x].name, Blockly.Variables.NAME_TYPE) + ';';
+      var name = Blockly.Arduino.variableDB_.getName(variables[x].name, Blockly.Variables.NAME_TYPE);
+      if (name === 'millis') {
+        defvars[x] = '';
+      } else {
+        defvars[x] = 'float ' + name + ';';
+      }
     }
   }
   if (variables.length > 0) {
